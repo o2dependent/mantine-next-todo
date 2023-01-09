@@ -1728,6 +1728,21 @@
   dependencies:
     "@mantine/utils" "5.9.0"
 
+"@mantine/ds@^5.10.0":
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/@mantine/ds/-/ds-5.10.0.tgz#dc5898f78475a2f3fb065ccb19aeec939b54dc83"
+  integrity sha512-B2fmkHzO0fGHNsa6UbEyX96o+/jJVFUPUvtsorj9h/pcRaKDGfXwD/n9oplgf7blAmgbvnjRtA2wVUVRzdj8sA==
+  dependencies:
+    "@mantine/utils" "5.10.0"
+
+"@mantine/form@^5.10.0":
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/@mantine/form/-/form-5.10.0.tgz#d01b6b593d744466e71d9b2d72dc85569c3e5eca"
+  integrity sha512-4X9RR75Aaq0fxu+kJ/mL/CAOPlgHNhbUY657hGJlfwqWJFwibnhyCe1s5lpZ7Sm8F3hNsSMpWzdA687gvhw4Lw==
+  dependencies:
+    fast-deep-equal "^3.1.3"
+    klona "^2.0.5"
+
 "@mantine/hooks@5.9.0":
   version "5.9.0"
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.9.0.tgz#c3ad41ab73a06b5b9a71d7c57571f8e0b1bc96cb"
@@ -1748,6 +1763,13 @@
   dependencies:
     "@mantine/utils" "5.9.0"
     react-transition-group "4.4.2"
+
+"@mantine/nprogress@^5.10.0":
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/@mantine/nprogress/-/nprogress-5.10.0.tgz#25a4d2b042ea6a7d1dce16302572041220e1f672"
+  integrity sha512-7xKyqjnWbJr5W2I5V9V2X10w7GRyqJHZArVnAVJuyiAedTZNPVuIye6yfPB7Lo+ZvVifYTwyaXE8Xk2IvPfsvw==
+  dependencies:
+    "@mantine/utils" "5.10.0"
 
 "@mantine/prism@5.9.0":
   version "5.9.0"
@@ -1772,6 +1794,11 @@
   dependencies:
     clsx "1.1.1"
     csstype "3.0.9"
+
+"@mantine/utils@5.10.0":
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.10.0.tgz#d77bdbd4fbf0ef7b10dd0c6480ce9a035dd31ae9"
+  integrity sha512-mHnNm0ajIa8qLAIEwv82N6+7YKecynOA3I8vzgBHXS2x4HwGsHITFYGmMh2LNpx5dRL034tObfEFYZXqncyEDw==
 
 "@mantine/utils@5.9.0":
   version "5.9.0"
@@ -8356,7 +8383,7 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-klona@^2.0.4:
+klona@^2.0.4, klona@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.5.tgz#d166574d90076395d9963aa7a928fabb8d76afbc"
   integrity sha512-pJiBpiXMbt7dkzXe8Ghj/u4FfXOOa98fPW+bihOJ4SjnoijweJrNThJfd3ifXpXhREjpoF2mZVH1GfS9LV3kHQ==
