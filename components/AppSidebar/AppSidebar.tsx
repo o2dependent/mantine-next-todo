@@ -1,14 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { createStyles, Navbar, UnstyledButton, Tooltip, Title } from '@mantine/core';
-import {
-  IconHome2,
-  IconGauge,
-  IconDeviceDesktopAnalytics,
-  IconFingerprint,
-  IconCalendarStats,
-  IconUser,
-  IconSettings,
-} from '@tabler/icons';
+import type { TablerIcon } from '@tabler/icons';
 import { MantineLogo } from '@mantine/ds';
 import Link from 'next/link';
 
@@ -111,62 +103,60 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const mainLinksMockdata = [
-  { icon: IconHome2, label: 'Home' },
-  { icon: IconGauge, label: 'Dashboard' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' },
-  { icon: IconCalendarStats, label: 'Releases' },
-  { icon: IconUser, label: 'Account' },
-  { icon: IconFingerprint, label: 'Security' },
-  { icon: IconSettings, label: 'Settings' },
-];
+interface AppSideBarProps {
+  items: ({ icon: TablerIcon; label: string } & (
+    | { links: { label: string; href: string }[]; href?: never }
+    | { links?: never; href: string }
+  ))[];
+}
 
-const linksMockdata = [
-  'Security',
-  'Settings',
-  'Dashboard',
-  'Releases',
-  'Account',
-  'Orders',
-  'Clients',
-  'Databases',
-  'Pull Requests',
-  'Open Issues',
-  'Wiki pages',
-];
-
-export function AppSidebar() {
+export const AppSidebar: React.FC<AppSideBarProps> = ({ items }) => {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState('Releases');
-  const [activeLink, setActiveLink] = useState('Settings');
+  const [active, setActive] = useState(0);
+  const [activeLink, setActiveLink] = useState(items?.[0]?.links?.[0] ? 0 : undefined);
 
-  const mainLinks = mainLinksMockdata.map((link) => (
-    <Tooltip label={link.label} position="right" withArrow transitionDuration={0} key={link.label}>
-      <UnstyledButton
-        onClick={() => setActive(link.label)}
-        className={cx(classes.mainLink, { [classes.mainLinkActive]: link.label === active })}
-      >
-        <link.icon stroke={1.5} />
-      </UnstyledButton>
-    </Tooltip>
-  ));
+  const mainLinks = useMemo(
+    () =>
+      items?.map((item, idx) => (
+        <Tooltip
+          label={item.label}
+          position="right"
+          withArrow
+          transitionDuration={0}
+          key={item.label}
+        >
+          <UnstyledButton
+            onClick={() => setActive(idx)}
+            className={cx(classes.mainLink, { [classes.mainLinkActive]: idx === active })}
+          >
+            <item.icon stroke={1.5} />
+          </UnstyledButton>
+        </Tooltip>
+      )),
+    [active]
+  );
 
-  const links = linksMockdata.map((link) => (
-    <Link
-      className={cx(classes.link, { [classes.linkActive]: activeLink === link })}
-      href="/"
-      onClick={(event) => {
-        event.preventDefault();
-        setActiveLink(link);
-      }}
-      key={link}
-    >
-      {link}
-    </Link>
-  ));
+  const links = useMemo(
+    () =>
+      activeLink &&
+      items[active]?.links?.map(({ href, label }, idx) => (
+        <Link
+          className={cx(classes.link, { [classes.linkActive]: activeLink === idx })}
+          href={href}
+          onClick={(event) => {
+            event.preventDefault();
+            setActiveLink(idx);
+          }}
+          key={label}
+        >
+          {label}
+        </Link>
+      )),
+    [activeLink, active]
+  );
 
   return (
-    <Navbar height={750} width={{ sm: 300 }}>
+    <Navbar height="100%" width={{ sm: 300 }}>
       <Navbar.Section grow className={classes.wrapper}>
         <div className={classes.aside}>
           <div className={classes.logo}>
@@ -184,4 +174,4 @@ export function AppSidebar() {
       </Navbar.Section>
     </Navbar>
   );
-}
+};
