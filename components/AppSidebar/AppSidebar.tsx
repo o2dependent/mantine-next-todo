@@ -11,6 +11,7 @@ const useStyles = createStyles((theme) => ({
 
   aside: {
     flex: '0 0 60px',
+    width: '60px',
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
     display: 'flex',
     flexDirection: 'column',
@@ -21,6 +22,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   main: {
+    width: '300px',
     flex: 1,
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
   },
@@ -138,8 +140,8 @@ export const AppSidebar: React.FC<AppSideBarProps> = ({ items }) => {
 
   const links = useMemo(
     () =>
-      activeLink &&
-      items[active]?.links?.map(({ href, label }, idx) => (
+      active &&
+      (items[active]?.links?.map(({ href, label }, idx) => (
         <Link
           className={cx(classes.link, { [classes.linkActive]: activeLink === idx })}
           href={href}
@@ -151,12 +153,13 @@ export const AppSidebar: React.FC<AppSideBarProps> = ({ items }) => {
         >
           {label}
         </Link>
-      )),
+      )) ??
+        null),
     [activeLink, active]
   );
 
   return (
-    <Navbar height="100%" width={{ sm: 300 }}>
+    <Navbar height="100%" w="fit-content">
       <Navbar.Section grow className={classes.wrapper}>
         <div className={classes.aside}>
           <div className={classes.logo}>
@@ -164,13 +167,15 @@ export const AppSidebar: React.FC<AppSideBarProps> = ({ items }) => {
           </div>
           {mainLinks}
         </div>
-        <div className={classes.main}>
-          <Title order={4} className={classes.title}>
-            {active}
-          </Title>
+        {Array.isArray(links) && (
+          <div className={classes.main}>
+            <Title order={4} className={classes.title}>
+              {items?.[active]?.label}
+            </Title>
 
-          {links}
-        </div>
+            {links}
+          </div>
+        )}
       </Navbar.Section>
     </Navbar>
   );
